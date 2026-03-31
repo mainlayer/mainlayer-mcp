@@ -2,7 +2,7 @@
  * Mainlayer API client
  * Wraps the Mainlayer payment infrastructure REST API.
  */
-const BASE_URL = "https://api.mainlayer.xyz";
+const BASE_URL = "https://api.mainlayer.fr";
 export class MainlayerClient {
     apiKey;
     constructor(config) {

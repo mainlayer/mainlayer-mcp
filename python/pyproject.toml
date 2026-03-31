@@ -29,7 +29,7 @@ dependencies = [
 mainlayer-mcp = "mainlayer_mcp.server:main"
 
 [project.urls]
-Homepage = "https://mainlayer.xyz"
+Homepage = "https://mainlayer.fr"
 Repository = "https://github.com/mainlayer/mainlayer-mcp"
 Issues = "https://github.com/mainlayer/mainlayer-mcp/issues"
 

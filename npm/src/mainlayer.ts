@@ -3,7 +3,7 @@
  * Wraps the Mainlayer payment infrastructure REST API.
  */
 
-const BASE_URL = "https://api.mainlayer.xyz";
+const BASE_URL = "https://api.mainlayer.fr";
 
 export interface MainlayerConfig {
   apiKey: string;

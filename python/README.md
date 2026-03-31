@@ -1,6 +1,6 @@
 # mainlayer-mcp (Python)
 
-MCP server for [Mainlayer](https://mainlayer.xyz) — give any AI agent the ability to discover, pay for, and sell resources via Mainlayer's payment infrastructure.
+MCP server for [Mainlayer](https://mainlayer.fr) — give any AI agent the ability to discover, pay for, and sell resources via Mainlayer's payment infrastructure.
 
 ## Installation
 

@@ -10,7 +10,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 
-BASE_URL = "https://api.mainlayer.xyz"
+BASE_URL = "https://api.mainlayer.fr"
 
 
 class MainlayerError(Exception):

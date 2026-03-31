@@ -1,6 +1,6 @@
 # mainlayer-mcp
 
-MCP server for [Mainlayer](https://mainlayer.xyz) — give any AI agent the ability to discover, pay for, and sell resources via Mainlayer's payment infrastructure.
+MCP server for [Mainlayer](https://mainlayer.fr) — give any AI agent the ability to discover, pay for, and sell resources via Mainlayer's payment infrastructure.
 
 Available as:
 - **`@mainlayer/mcp`** on npm (TypeScript/Node.js)
@@ -68,7 +68,7 @@ Set your API key via environment variable:
 export MAINLAYER_API_KEY=ml_...
 ```
 
-Get your API key at [mainlayer.xyz](https://mainlayer.xyz).
+Get your API key at [mainlayer.fr](https://mainlayer.fr).
 
 ---
 
