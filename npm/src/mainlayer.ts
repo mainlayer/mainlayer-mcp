@@ -158,4 +158,46 @@ export class MainlayerClient {
   async listPayments(): Promise<Payment[]> {
     return this.request<Payment[]>("GET", "/payments");
   }
+
+  async createVendor(params: {
+    name: string;
+    description?: string;
+    website?: string;
+  }): Promise<Record<string, unknown>> {
+    return this.request<Record<string, unknown>>("POST", "/vendors", params);
+  }
+
+  async createPlan(params: {
+    resource_id: string;
+    name: string;
+    fee_model: string;
+    price_usdc: number;
+    credits_per_payment?: number;
+    duration_seconds?: number;
+    description?: string;
+  }): Promise<Record<string, unknown>> {
+    return this.request<Record<string, unknown>>("POST", "/plans", params);
+  }
+
+  async createSubscription(params: {
+    resource_id: string;
+    payer_wallet: string;
+    plan_id?: string;
+    coupon_code?: string;
+  }): Promise<Record<string, unknown>> {
+    return this.request<Record<string, unknown>>("POST", "/subscriptions", params);
+  }
+
+  async getEarnings(params: {
+    start_date?: string;
+    end_date?: string;
+    resource_id?: string;
+  }): Promise<Analytics> {
+    const qs = new URLSearchParams();
+    if (params.start_date) qs.set("start_date", params.start_date);
+    if (params.end_date) qs.set("end_date", params.end_date);
+    if (params.resource_id) qs.set("resource_id", params.resource_id);
+    const query = qs.toString();
+    return this.request<Analytics>("GET", `/analytics${query ? `?${query}` : ""}`);
+  }
 }

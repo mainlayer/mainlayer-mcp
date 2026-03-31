@@ -25,11 +25,18 @@ dependencies = [
     "mcp>=1.0.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
 [project.scripts]
 mainlayer-mcp = "mainlayer_mcp.server:main"
 
 [project.urls]
 Homepage = "https://mainlayer.fr"
+Documentation = "https://docs.mainlayer.fr"
 Repository = "https://github.com/mainlayer/mainlayer-mcp"
 Issues = "https://github.com/mainlayer/mainlayer-mcp/issues"
 

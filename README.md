@@ -2,6 +2,8 @@
 
 MCP server for [Mainlayer](https://mainlayer.fr) — give any AI agent the ability to discover, pay for, and sell resources via Mainlayer's payment infrastructure.
 
+Full documentation at [docs.mainlayer.fr](https://docs.mainlayer.fr).
+
 Available as:
 - **`@mainlayer/mcp`** on npm (TypeScript/Node.js)
 - **`mainlayer-mcp`** on PyPI (Python)
@@ -10,38 +12,18 @@ Available as:
 
 ## What is Mainlayer?
 
-Mainlayer is payment infrastructure built for AI agents. Any agent can discover paid resources, execute payments, check entitlements, and manage subscriptions — all without human intervention.
-
----
-
-## Tools
-
-### Buyer tools (any agent can use these)
-
-| Tool | Description |
-|---|---|
-| `discover_resources` | Search the Mainlayer marketplace for available paid resources |
-| `get_resource_info` | Get full details about a specific resource by ID |
-| `pay_for_resource` | Execute a payment to purchase access |
-| `check_access` | Check whether a wallet already has access to a resource |
-
-### Vendor tools (for agents selling things)
-
-| Tool | Description |
-|---|---|
-| `create_resource` | Create a new paid resource on Mainlayer |
-| `list_my_resources` | List all your vendor resources |
-| `get_analytics` | Get revenue analytics, optionally filtered by date |
-| `list_payments` | View full incoming payment history |
+Mainlayer is payment infrastructure built for AI agents. Any agent can discover paid resources, execute payments, check entitlements, manage subscriptions, and earn revenue — all without human intervention.
 
 ---
 
 ## Installation
 
-### npm (TypeScript/Node.js)
+### npm (recommended for Claude Desktop)
+
+Run without installing:
 
 ```bash
-npx @mainlayer/mcp
+npx -y @mainlayer/mcp
 ```
 
 Or install globally:
@@ -51,12 +33,121 @@ npm install -g @mainlayer/mcp
 mainlayer-mcp
 ```
 
-### pip (Python)
+### pip / uvx (Python)
 
 ```bash
 pip install mainlayer-mcp
 python -m mainlayer_mcp
 ```
+
+Or with `uvx`:
+
+```bash
+uvx mainlayer-mcp
+```
+
+---
+
+## Claude Desktop Configuration
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+**Using npm (recommended):**
+
+```json
+{
+  "mcpServers": {
+    "mainlayer": {
+      "command": "npx",
+      "args": ["-y", "@mainlayer/mcp"],
+      "env": {
+        "MAINLAYER_API_KEY": "ml_your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+**Using Python (uvx):**
+
+```json
+{
+  "mcpServers": {
+    "mainlayer": {
+      "command": "uvx",
+      "args": ["mainlayer-mcp"],
+      "env": {
+        "MAINLAYER_API_KEY": "ml_your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+**Using Python (pip):**
+
+```json
+{
+  "mcpServers": {
+    "mainlayer": {
+      "command": "python",
+      "args": ["-m", "mainlayer_mcp"],
+      "env": {
+        "MAINLAYER_API_KEY": "ml_your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+Get your API key at [mainlayer.fr](https://mainlayer.fr).
+
+---
+
+## Available MCP Tools
+
+### Vendor tools — earn revenue by selling resources
+
+| Tool | Description |
+|------|-------------|
+| `create_vendor` | Register as a vendor on Mainlayer |
+| `create_resource` | Create a new billable resource (API, file, endpoint, page) |
+| `list_resources` | List all your vendor resources |
+| `create_plan` | Create a pricing plan for a resource |
+| `get_earnings` | Get revenue analytics with optional date/resource filters |
+| `create_subscription` | Set up a recurring subscription for a payer |
+| `get_analytics` | Get full analytics for your resources |
+| `list_payments` | View complete incoming payment history |
+
+### Buyer tools — discover and pay for resources
+
+| Tool | Description |
+|------|-------------|
+| `discover_resources` | Search the Mainlayer marketplace |
+| `get_resource_info` | Get full details about a resource by ID |
+| `check_access` | Check whether a wallet has active access |
+| `pay_for_resource` | Execute a payment to purchase access |
+
+---
+
+## Example Prompts to Claude
+
+Once configured, try these prompts in Claude Desktop:
+
+**As a vendor:**
+- "Register me as a vendor on Mainlayer with the name 'My AI Services'."
+- "Create a paid API called 'Stock Sentiment API' at $0.02 per call."
+- "Add a Pro pricing plan at $0.05/call with 50 credits per payment."
+- "How much have I earned on Mainlayer this month?"
+- "List all my resources on Mainlayer."
+
+**As a buyer:**
+- "Find me a weather API on Mainlayer."
+- "Check if my wallet 0x... has access to resource res_abc123."
+- "Pay for resource res_abc123 using wallet 0x..."
+- "Subscribe my wallet to the monthly plan for res_abc123."
+
+See [`examples/example_conversations.md`](./examples/example_conversations.md) for full conversation examples.
 
 ---
 
@@ -68,131 +159,66 @@ Set your API key via environment variable:
 export MAINLAYER_API_KEY=ml_...
 ```
 
-Get your API key at [mainlayer.fr](https://mainlayer.fr).
+### Other MCP clients (Cursor, VS Code, etc.)
 
----
-
-## Client Setup
-
-### Claude Desktop
-
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
-
-**Using npm (npx):**
+Add to `.cursor/mcp.json` or your client's config:
 
 ```json
 {
   "mcpServers": {
     "mainlayer": {
       "command": "npx",
-      "args": ["@mainlayer/mcp"],
+      "args": ["-y", "@mainlayer/mcp"],
       "env": {
         "MAINLAYER_API_KEY": "ml_..."
       }
     }
   }
 }
-```
-
-**Using Python:**
-
-```json
-{
-  "mcpServers": {
-    "mainlayer": {
-      "command": "python",
-      "args": ["-m", "mainlayer_mcp"],
-      "env": {
-        "MAINLAYER_API_KEY": "ml_..."
-      }
-    }
-  }
-}
-```
-
-### Cursor
-
-Add to `.cursor/mcp.json` in your project root or `~/.cursor/mcp.json` globally:
-
-**Using npm:**
-
-```json
-{
-  "mcpServers": {
-    "mainlayer": {
-      "command": "npx",
-      "args": ["@mainlayer/mcp"],
-      "env": {
-        "MAINLAYER_API_KEY": "ml_..."
-      }
-    }
-  }
-}
-```
-
-**Using Python:**
-
-```json
-{
-  "mcpServers": {
-    "mainlayer": {
-      "command": "python",
-      "args": ["-m", "mainlayer_mcp"],
-      "env": {
-        "MAINLAYER_API_KEY": "ml_..."
-      }
-    }
-  }
-}
-```
-
-### Generic MCP client
-
-Any MCP-compatible client that supports stdio transport can connect to this server.
-
-**npm:**
-
-```bash
-MAINLAYER_API_KEY=ml_... npx @mainlayer/mcp
-```
-
-**Python:**
-
-```bash
-MAINLAYER_API_KEY=ml_... python -m mainlayer_mcp
 ```
 
 ---
 
 ## Example agent workflows
 
+### Earn money: register and monetize a service
+
+```
+You: Create a paid API called "Earnings Forecast API" at $0.05 per call.
+
+Claude calls: create_vendor → create_resource → confirm resource is live
+```
+
 ### Discover and pay for a resource
 
 ```
-Agent: discover_resources({ query: "weather forecast API" })
+Claude calls: discover_resources({ query: "weather forecast API" })
 → [{ id: "res_abc123", slug: "weather-api", price_usdc: 0.01, fee_model: "pay_per_call" }]
 
-Agent: check_access({ resource_id: "res_abc123", payer_wallet: "wallet_xyz" })
+Claude calls: check_access({ resource_id: "res_abc123", payer_wallet: "wallet_xyz" })
 → { has_access: false }
 
-Agent: pay_for_resource({ resource_id: "res_abc123", payer_wallet: "wallet_xyz" })
+Claude calls: pay_for_resource({ resource_id: "res_abc123", payer_wallet: "wallet_xyz" })
 → { id: "pay_def456", status: "success", entitlement: { has_access: true, credits_remaining: 100 } }
 ```
 
-### Create and monetize a resource
+### Create a resource with multiple pricing tiers
 
 ```
-Agent: create_resource({
-  slug: "my-analysis-api",
-  type: "api",
-  price_usdc: 0.05,
-  fee_model: "pay_per_call",
-  description: "Financial data analysis endpoint",
-  callback_url: "https://my-server.example.com/mainlayer/webhook",
-  credits_per_payment: 10
-})
-→ { id: "res_new123", slug: "my-analysis-api", ... }
+Claude calls: create_resource({ slug: "my-api", type: "api", price_usdc: 0.01, fee_model: "pay_per_call" })
+→ { id: "res_new123", ... }
+
+Claude calls: create_plan({ resource_id: "res_new123", name: "Pro", fee_model: "pay_per_call", price_usdc: 0.05, credits_per_payment: 50 })
+→ { id: "plan_pro_001", ... }
 ```
+
+---
+
+## API Reference
+
+Both packages call the Mainlayer REST API at `https://api.mainlayer.fr`.
+
+- Full API docs: [docs.mainlayer.fr](https://docs.mainlayer.fr)
 
 ---
 
@@ -215,8 +241,16 @@ pip install -e ".[dev]"
 python -m mainlayer_mcp
 ```
 
+### Running tests
+
+```bash
+cd python
+pip install -e ".[dev]"
+pytest tests/
+```
+
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT
