@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mainlayer-mcp"
+version = "0.1.0"
+description = "MCP server for Mainlayer — give any AI agent the ability to discover, pay for, and sell resources"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["mcp", "model-context-protocol", "mainlayer", "payments", "ai-payments"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+mainlayer-mcp = "mainlayer_mcp.server:main"
+
+[project.urls]
+Homepage = "https://mainlayer.xyz"
+Repository = "https://github.com/mainlayer/mainlayer-mcp"
+Issues = "https://github.com/mainlayer/mainlayer-mcp/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mainlayer_mcp"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "README.md",
+    "pyproject.toml",
+]

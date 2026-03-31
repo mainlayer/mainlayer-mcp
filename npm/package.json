@@ -1,0 +1,43 @@
+{
+  "name": "@mainlayer/mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Mainlayer — give any AI agent the ability to discover, pay for, and sell resources",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mainlayer",
+    "payments",
+    "ai-payments",
+    "agent-payments"
+  ],
+  "homepage": "https://mainlayer.xyz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mainlayer/mainlayer-mcp"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mainlayer-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
